@@ -6,7 +6,7 @@ type User = {
     firstName: string; 
     lastName: string; 
     birthDate: string; 
-    email: string; 
+    email?: string; 
     phone: string; 
     address: string; 
     about: string; 
@@ -17,14 +17,16 @@ type Props = {
     users : User[];
 }
 
-function Users(props: Props){
+//On peut destructurer dans la ligne ci-dessous
+function Users({ users }: Props){
+    //Ligne original function Users(props: Props)
     //const users = props.users;
     //Equivalent en dessous Destructurer les props
-    const { users } = props;
+    //const { users } = props;
 
     return (
         <section className="grid md:grid-cols-2 gap-4">
-            {users.map(({firstName,lastName, phone, email}: User) =>(
+            {users.map(({firstName,lastName, phone, email = "Indisponible"}: User) =>(
                 <article className="text-base rounded-lg bg-gray-200 border-4 border-gray-800 p-6">
                     <h3 className="text-lg">
                         {firstName} {lastName}
@@ -35,8 +37,25 @@ function Users(props: Props){
                 </article>
 
             ))}
+
         </section>
     );
+
+    /*
+    ligne original avant destructuration :
+
+    {users.map((user: User) =>(
+        <article className="text-base rounded-lg bg-gray-200 border-4 border-gray-800 p-6">
+            <h3 className="text-lg">
+                {user.firstName} {user.lastName}
+            </h3>
+            <p>{user.email}</p>
+            <p>{user.phone}</p>
+
+        </article>
+
+            ))}
+    */
 }
 
 export default Users;
