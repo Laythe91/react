@@ -18,15 +18,20 @@ type Props = {
 }
 
 function Users(props: Props){
-    const users = props.users;
+    //const users = props.users;
+    //Equivalent en dessous Destructurer les props
+    const { users } = props;
 
     return (
-        <section className="grid">
-            {users.map((user: User) =>(
-                <article className="user">
-                    <h3>{user.firstName} {user.lastName}</h3>
-                    <p>{user.phone}</p>
-                    <p>{user.email}</p>
+        <section className="grid md:grid-cols-2 gap-4">
+            {users.map(({firstName,lastName, phone, email}: User) =>(
+                <article className="text-base rounded-lg bg-gray-200 border-4 border-gray-800 p-6">
+                    <h3 className="text-lg">
+                        {firstName} {lastName}
+                    </h3>
+                    <p>{email}</p>
+                    <p>{phone}</p>
+
                 </article>
 
             ))}
